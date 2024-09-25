@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatgpt PWA</title>
+    <title>ChatGPT PWA</title>
     <link rel="manifest" href="manifest.json">
     <style>
         body {
@@ -52,14 +52,18 @@
             window.location.href = 'https://chatgpt.com/';
         }
 
+        // 检查是否为独立应用
         if (window.matchMedia('(display-mode: standalone)').matches) {
+            // 如果是 app 模式，等待很短的时间后重定向
             setTimeout(redirect, 1000);
         } else {
+            // 如果不是 app 模式，隐藏加载动画，显示按钮
             document.getElementById('loadingAnimation').style.display = 'none';
             document.getElementById('redirectButton').style.display = 'inline-block';
             document.getElementById('redirectButton').addEventListener('click', redirect);
         }
 
+        // 注册 Service Worker
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js')
                 .then((reg) => console.log('Service worker registered.', reg))
